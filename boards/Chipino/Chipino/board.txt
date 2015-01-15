@@ -1,0 +1,28 @@
+description=Chipino PIC16
+
+# new items
+group=Chipino
+platform=pic18
+board=_BOARD_CHIPINO_
+board.flags=
+
+mcu=16F886
+
+board.flags=
+
+build.core=pic18
+build.variant=Chipino
+
+family=pic18
+version=0.2
+revision=3
+core=pic18
+name=Chipino
+
+icon.128=icons/majenko128.png
+icon.64=icons/majenko64.png
+icon.48=icons/majenko48.png
+icon.32=icons/majenko32.png
+icon.22=icons/majenko22.png
+icon.16=icons/majenko16.png
+

@@ -1,0 +1,73 @@
+# Set the path of the compiler here if it's not in your system path.  
+# Be sure to include the trailing /.
+#
+#compiler.bin=/path/to/compiler/bin/folder/
+
+name=xc8
+family=pic18
+compiler.version=%VERSION%
+compiler.revision=%REVISION%
+version=%VERSION%
+revision=%REVISION%
+description=XC8 compiler (Native installation)
+
+warnings=
+extra.flags=
+
+cflags=--pass1::-Q::-G::--double=24::--float=24::--emi=wordwrite::--opt=default,+asm,+asmfile,-speed,+space,-debug::--addrqual=ignore::--mode=free::-P::-N255::--warn=0::--asmlist::--summary=default,-psect,-class,+mem,-hex,-file::--output=default,-inhx032::--runtime=default,+clear,+init,-keep,-no_startup,-download,+config,+clib,+plib::--errformat=%f:%l: error: (%n) %s::--warnformat=%f:%l: warning: (%n) %s::--msgformat=%f:%l: advisory: (%n) %s
+cppflags=${cflags}
+
+ldflags=-G::--double=24::--float=24::--emi=wordwrite::--opt=default,+asm,+asmfile,-speed,+space,-debug::--addrqual=ignore::--mode=free::-P::-N255::--warn=0::--asmlist::--summary=default,-psect,-class,+mem,-hex,-file::--output=default,-inhx032::--runtime=default,+clear,+init,-keep,-no_startup,-download,+config,+clib,+plib::--errformat=%f:%l: error: (%n) %s::--warnformat=%f:%l: warning: (%n) %s::--msgformat=%f:%l: advisory: (%n) %s
+
+xc8=${compiler.bin}xc8
+libr=${compiler.bin}libr
+objcopy=${compiler.bin}objcopy
+objdump=${compiler.bin}objdump
+size=${compiler.bin}size
+binhex=${compiler.bin}objtohex
+
+build.extension=c
+compiler.object=p1
+compiler.library=lpp
+compiler.library.prefix=
+
+compile.liboption=${cache.root}/${library}.lpp
+
+compile.c=${xc8}::${cflags}::${core.flags}::${board.flags}::${includes}::--chip=${mcu}::-o${object.name}::${source.name}
+compile.cpp=${xc8}::${cflags}::${core.flags}::${board.flags}::${includes}::--chip=${mcu}::-o${object.name}::${source.name}
+compile.S=${xc8}::${cflags}::${core.flags}::${board.flags}::${includes}::--chip=${mcu}::-o${object.name}::${source.name}
+compile.ar=${libr}::r::${library}::${object.name}
+#compile.eep=
+#compile.hex=
+#compile.lss=${objdump}::-h::-S::${build.path}/${filename}.elf
+compile.link=${xc8}::${ldflags}::${core.ldflags}::${board.ldflags}::--chip=${mcu}::-o${filename}.cof::${libraries}::${object.filelist}
+#compile.size=${size}::${build.path}/${filename}.elf
+
+#compile.bin=${objcopy}::--input::binary::--output-target::elf32-tradlittlemips::--binary-architecture::mips::--rename-section::.data=.text,alloc,load,readonly,code,share,contents::${source.name}::${object.name}
+
+compiler.error=^([^:]+):(\\d+):\\d+: error: (.*)
+compiler.warning=^([^:]+):(\\d+): Warning: (.*)
+
+options.warnings.name=Warnings
+options.warnings.default=off
+options.warnings.on.name=Enable all warnings
+options.warnings.on.flags=-Wall
+options.warnings.err.name=Error on warnings
+options.warnings.err.flags=-Wall::-Werror
+options.warnings.off.name=Suppress warnings
+options.warnings.off.flags=-w
+
+options.optim.name=Optimization
+options.optim.default=size
+options.optim.purge=true
+options.optim.size.flags=-Os
+options.optim.size.name=Size
+options.optim.l0.flags=-O0
+options.optim.l0.name=Level 0
+options.optim.l1.flags=-O1
+options.optim.l1.name=Level 1
+options.optim.l2.flags=-O2
+options.optim.l2.name=Level 2
+options.optim.l3.flags=-O3
+options.optim.l3.name=Level 3
+

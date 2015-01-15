@@ -1,0 +1,28 @@
+description=Micro Pulse Rifle V2
+
+# new items
+group=Majenko Technologies
+platform=pic18
+board=_BOARD_UPR_V2_
+board.flags=
+
+mcu=18F23K20
+
+board.flags=
+
+build.core=pic18
+build.variant=uPR_v2
+
+family=pic18
+version=0.2
+revision=4
+core=pic18
+name=uPR_v2
+
+icon.128=icons/majenko128.png
+icon.64=icons/majenko64.png
+icon.48=icons/majenko48.png
+icon.32=icons/majenko32.png
+icon.22=icons/majenko22.png
+icon.16=icons/majenko16.png
+

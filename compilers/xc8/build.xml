@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<project name="xc8" default="build">
+
+    <property name="version" value="1" />
+    <property name="revision" value="12" />
+
+    <target name="build" depends="macosx,linux,windows">
+    </target>
+
+    <target name="install" depends="build">
+        <move file="${ant.project.name}-linux.jar" todir="/var/www/uecide/plugins-088/compilers" />
+        <move file="${ant.project.name}-macosx.jar" todir="/var/www/uecide/plugins-088/compilers" />
+        <move file="${ant.project.name}-windows.jar" todir="/var/www/uecide/plugins-088/compilers" />
+    </target>
+
+    <target name="macosx">
+        <delete dir="build" />
+        <mkdir dir="build/${ant.project.name}" />
+        <copy file="compiler.txt" todir="build/${ant.project.name}/" />
+        <replace file="build/${ant.project.name}/compiler.txt" token="%VERSION%" value="${version}" />
+        <replace file="build/${ant.project.name}/compiler.txt" token="%REVISION%" value="${revision}" />
+        <jar basedir="build" destfile="${ant.project.name}-macosx.jar">
+            <manifest>
+                <attribute name="Version" value="${version}-${revision}" />
+                <attribute name="Author" value="Microchip Inc" />
+                <attribute name="Compiler" value="${ant.project.name}" />
+                <attribute name="Family" value="pic18" />
+                <attribute name="Platform" value="macosx" />
+                <attribute name="Arch" value="any" />
+            </manifest>
+        </jar>
+        <delete dir="build" />
+    </target>
+
+    <target name="linux">
+        <delete dir="build" />
+        <mkdir dir="build/${ant.project.name}" />
+        <copy file="compiler.txt" todir="build/${ant.project.name}/" />
+        <replace file="build/${ant.project.name}/compiler.txt" token="%VERSION%" value="${version}" />
+        <replace file="build/${ant.project.name}/compiler.txt" token="%REVISION%" value="${revision}" />
+        <jar basedir="build" destfile="${ant.project.name}-linux.jar">
+            <manifest>
+                <attribute name="Version" value="${version}-${revision}" />
+                <attribute name="Author" value="Microchip Inc" />
+                <attribute name="Compiler" value="${ant.project.name}" />
+                <attribute name="Family" value="pic18" />
+                <attribute name="Platform" value="linux" />
+                <attribute name="Arch" value="i386,amd64" />
+            </manifest>
+        </jar>
+        <delete dir="build" />
+    </target>
+
+    <target name="windows">
+        <delete dir="build" />
+        <mkdir dir="build/${ant.project.name}" />
+        <copy file="compiler.txt" todir="build/${ant.project.name}/" />
+        <replace file="build/${ant.project.name}/compiler.txt" token="%VERSION%" value="${version}" />
+        <replace file="build/${ant.project.name}/compiler.txt" token="%REVISION%" value="${revision}" />
+        <jar basedir="build" destfile="${ant.project.name}-windows.jar">
+            <manifest>
+                <attribute name="Version" value="${version}-${revision}" />
+                <attribute name="Author" value="Microchip Inc" />
+                <attribute name="Compiler" value="${ant.project.name}" />
+                <attribute name="Family" value="pic18" />
+                <attribute name="Platform" value="windows" />
+                <attribute name="Arch" value="any" />
+            </manifest>
+        </jar>
+        <delete dir="build" />
+    </target>
+
+
+    <target name="clean">
+        <delete dir="files" />
+        <delete dir="build" />
+        <delete file="${ant.project.name}-linux.jar" />
+        <delete file="${ant.project.name}-macosx.jar" />
+        <delete file="${ant.project.name}-windows.jar" />
+    </target>
+
+</project>
